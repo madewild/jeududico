@@ -9,7 +9,7 @@ window.set_icon("dico.ico")
 window.signal_connect("destroy") {Gtk.main_quit}
 
 def nouveau
-	File::open("liste_mots.txt", "r") do |liste|
+	File::open("words.txt", "r") do |liste|
 		@mots = liste.readlines
 	end
 	lim = @mots.length
