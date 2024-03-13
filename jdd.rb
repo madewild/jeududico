@@ -98,11 +98,10 @@ aide.set_relief(:none)
 aide.signal_connect("clicked") {
 	help = Gtk::MessageDialog.new(:parent => window, :flags => :modal, :type => :question, :buttons => :close, 
 	:message => "Le but du jeu est de trouver un mot français en un minimum d'essais. 
-Pour chaque tentative, le dictionnaire répond si c'est AVANT ou APRÈS, reduisant ainsi le champ des possibilités. 
-Toutes les formes fléchies sont incluses (pluriels, féminins, verbes conjugués...) mais pas les noms propres.
+Pour chaque tentative, le dictionnaire répond si c'est AVANT ou APRÈS, reduisant ainsi le champ des possibilités.
 
 Pour donner sa langue au chat, tapez simplement ?
-Pour connaître le nombre de lettres, tapez lettres?")
+Pour connaître le nombre de lettres, tapez L?")
 	help.set_title("Aide")
 	help.run
 	help.destroy
@@ -186,7 +185,7 @@ champ.signal_connect("activate") {
 		rejouer
 	elsif try.chomp == ""
 		@label.set_text("Entrez un mot")
-	elsif try.chomp == "lettres?"
+	elsif try.chomp == "L?"
 		lettres = (@mot.length - 1).to_s
 		@label.set_text("C'est un mot de " + lettres + " lettres...")
 	elsif try.chomp == "coups?"
