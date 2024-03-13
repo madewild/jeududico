@@ -19,9 +19,9 @@ def nouveau
 	@debut = Time.new
 	@trouve = false
 	@a = @mots[(lim-1)]
-	@aa = "ZUT"
+	@aa = @a.chomp.upcase
 	@b = @mots[0]
-	@bb = "ABACA"
+	@bb = @b.chomp.upcase
 	@coups = 0
 end
 
@@ -198,10 +198,12 @@ champ.signal_connect("activate") {
             essai = "essais"
         end
 		@label.set_text("Vous avez deja fait " + @coups.to_s + " " + essai + ".")
+    elsif try.length < 4
+		@label.set_text("Les mots de moins de 3 lettres ne sont pas pris en compte.")
 	else
 		@label.set_text("Le mot " + try.chomp.upcase + " n'est pas admis...")
 	end
-	@label2.set_text("C'est donc entre " + @bb + " et " + @aa + ".\n") if (@aa and @bb) unless @trouve
+	@label2.set_text("C'est donc entre " + @bb + " et " + @aa + ".\n") unless @trouve
 }
 hb.pack_start(champ, :expand => true, :fill => true, :padding => 3)
 b = Gtk::Button.new(:label => "OK")
