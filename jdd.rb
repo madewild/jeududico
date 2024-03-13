@@ -18,9 +18,9 @@ def nouveau
 	@debut = Time.new
 	@trouve = false
 	@a = @mots[(lim-1)]
-	@aa = nil
+	@aa = "ZUT"
 	@b = @mots[0]
-	@bb = nil
+	@bb = "ABACA"
 	@coups = 0
 end
 
@@ -48,7 +48,7 @@ def highscore
 			joueur = @name.text.capitalize + "\n"
 			@score.destroy
 			File::open("scores.txt", "a") do |file|
-			file << @coups+ ' coups en ' +@duree+ ' secondes (' +@mot.chomp+ '), joué par ' +joueur
+			file << @coups + ' coups en ' + @duree + ' secondes (' + @mot.chomp + '), joué par ' + joueur
 			end
 		end
 	end
@@ -119,7 +119,7 @@ scores.signal_connect("clicked") {
 		@lines = lines[0..9]
 	end
     for line in @lines
-        score = Gtk::Label.new(line)
+        score = Gtk::Label.new(line.chomp)
 	    hisc.child.pack_start(score)
     end
 	hisc.child.show_all
@@ -165,7 +165,9 @@ champ.signal_connect("activate") {
 		@popup.set_title("Victoire !")
 		highscore if @coups.to_i < 100
 		rejouer
-	elsif @mots.include?(try) and (try <= @b or try >= @a)
+    elsif @mots.include?(try) and (try == @b or try == @a)
+		@label.set_text("Tu as déjà essayé le mot " + try.chomp + " !")
+	elsif @mots.include?(try) and (@mots.index(try) < @mots.index(@b) or @mots.index(try) > @mots.index(@a))
 		@label.set_text("Revois ton ordre alphabétique !")
 	elsif @mots.include?(try) and @mots.index(try) > @mots.index(@mot)
 		@label.set_text("Non, c'est AVANT " + try.chomp)
