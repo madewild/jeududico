@@ -2735,6 +2735,7 @@ beauceron
 beaucoup
 beaujolais
 beauté
+bébé
 bec
 bécane
 bécarre
@@ -16893,6 +16894,7 @@ nominer
 nommé
 nommément
 nommer
+non
 nonagénaire
 nonce
 nonchalamment
