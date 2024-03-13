@@ -185,7 +185,7 @@ champ.signal_connect("activate") {
 		rejouer
 	elsif try.chomp == ""
 		@label.set_text("Entrez un mot")
-	elsif try.chomp == "L?"
+	elsif try.chomp == "l?"
 		lettres = (@mot.length - 1).to_s
 		@label.set_text("C'est un mot de " + lettres + " lettres...")
 	elsif try.chomp == "coups?"
