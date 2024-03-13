@@ -103,11 +103,9 @@ scores.signal_connect("clicked") {
 		lines = file.readlines
 		lines = lines.sort
 		@lines = lines[0..9]
-	end
-    for line in @lines
-        score = Gtk::Label.new(line.chomp)
-	    hisc.child.pack_start(score)
-    end
+	end 
+    score = Gtk::Label.new(@lines.join)
+	hisc.child.pack_start(score, :expand => false, :fill => false, :padding => 0)
 	hisc.child.show_all
     hisc.set_title("Scores")
 	hisc.run
@@ -183,7 +181,7 @@ champ.signal_connect("activate") {
 		@coups +=1
 	elsif try.chomp == '?' # Abandon
 		@popup = Gtk::MessageDialog.new(:parent => window, :flags => :modal, :type => :warning, :buttons => :yes_no, 
-			:message => "Tu donnes ta langue au chat ?\nC'etait " + @mot.chomp.upcase + " !\n\n Rejouer ?")
+			:message => "Tu donnes ta langue au chat ?\nC'était " + @mot.chomp.upcase + " !\n\n Rejouer ?")
 		@popup.set_title("Dommage...")
 		rejouer
 	elsif try.chomp == ""
