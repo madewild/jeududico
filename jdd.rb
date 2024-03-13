@@ -15,6 +15,7 @@ def nouveau
 	lim = @mots.length
 	nb = rand(lim)
 	@mot = @mots[nb]
+    @lettres = (@mot.length - 1).to_s
 	@debut = Time.new
 	@trouve = false
 	@a = @mots[(lim-1)]
@@ -121,8 +122,9 @@ aide.signal_connect("clicked") {
 	:message => "Le but du jeu est de trouver un mot français en un minimum d'essais. 
 Pour chaque tentative, le dictionnaire répond si c'est AVANT ou APRÈS, reduisant ainsi le champ des possibilités.
 
-Pour donner sa langue au chat, tapez simplement ?
-Pour connaître le nombre de lettres, tapez L?")
+Pour savoir combien de coups vous avez déjà faits, tapez c?
+Pour afficher à nouveau le nombre de lettres, tapez l?
+Pour donner votre langue au chat, tapez simplement ?")
 	help.set_title("Aide")
 	help.run
 	help.destroy
@@ -188,9 +190,14 @@ champ.signal_connect("activate") {
 		@label.set_text("Entrez un mot")
 	elsif try.chomp == "l?"
 		lettres = (@mot.length - 1).to_s
-		@label.set_text("C'est un mot de " + lettres + " lettres...")
-	elsif try.chomp == "coups?"
-		@label.set_text("Vous avez deja fait " + @coups.to_s + " essais.")
+		@label.set_text("C'est un mot de " + @lettres + " lettres...")
+	elsif try.chomp == "c?"
+        if @coups == 1
+            essai = "essai"
+        else
+            essai = "essais"
+        end
+		@label.set_text("Vous avez deja fait " + @coups.to_s + " " + essai + ".")
 	else
 		@label.set_text("Le mot " + try.chomp.upcase + " n'est pas admis...")
 	end
@@ -202,6 +209,7 @@ b.signal_connect("clicked") {champ.activate}
 hb.pack_start(b, :expand => false, :fill => false, :padding => 3)
 vb.pack_start(hb, :expand => true, :fill => false)
 @label = Gtk::Label.new("")
+@label.set_text("On cherche un mot de " + @lettres + " lettres...")
 vb.pack_start(@label, :expand => false)
 @label2 = Gtk::Label.new("")
 vb.pack_start(@label2)
