@@ -10748,6 +10748,7 @@ fissile
 fission
 fissure
 fissurer
+fiston
 fixage
 fixatif
 fixation
