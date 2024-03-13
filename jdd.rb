@@ -93,21 +93,6 @@ options.signal_connect("clicked") {
 }
 menu.attach(options,1,2,0,1,:shrink)
 
-aide = Gtk::Button.new(:label => "Aide")
-aide.set_relief(:none)
-aide.signal_connect("clicked") {
-	help = Gtk::MessageDialog.new(:parent => window, :flags => :modal, :type => :question, :buttons => :close, 
-	:message => "Le but du jeu est de trouver un mot français en un minimum d'essais. 
-Pour chaque tentative, le dictionnaire répond si c'est AVANT ou APRÈS, reduisant ainsi le champ des possibilités.
-
-Pour donner sa langue au chat, tapez simplement ?
-Pour connaître le nombre de lettres, tapez L?")
-	help.set_title("Aide")
-	help.run
-	help.destroy
-}
-menu.attach(aide,3,4,0,1,:shrink)
-
 scores = Gtk::Button.new(:label => "Scores")
 scores.set_relief(:none)
 scores.signal_connect("clicked") {
@@ -127,6 +112,21 @@ scores.signal_connect("clicked") {
 	hisc.destroy
 }
 menu.attach(scores,2,3,0,1,:shrink)
+
+aide = Gtk::Button.new(:label => "Aide")
+aide.set_relief(:none)
+aide.signal_connect("clicked") {
+	help = Gtk::MessageDialog.new(:parent => window, :flags => :modal, :type => :question, :buttons => :close, 
+	:message => "Le but du jeu est de trouver un mot français en un minimum d'essais. 
+Pour chaque tentative, le dictionnaire répond si c'est AVANT ou APRÈS, reduisant ainsi le champ des possibilités.
+
+Pour donner sa langue au chat, tapez simplement ?
+Pour connaître le nombre de lettres, tapez L?")
+	help.set_title("Aide")
+	help.run
+	help.destroy
+}
+menu.attach(aide,3,4,0,1,:shrink)
 
 chrono = Gtk::Label.new("00:00")
 tps = (Time.new-@debut).to_i
