@@ -168,7 +168,7 @@ champ.signal_connect("activate") {
 		highscore if @coups.to_i < 100
 		rejouer
     elsif @mots.include?(try) and (try == @b or try == @a)
-		@label.set_text("Tu as déjà essayé le mot " + try.chomp + " !")
+		@label.set_text("Tu as déjà essayé le mot " + try.chomp.upcase + " !")
 	elsif @mots.include?(try) and (@mots.index(try) < @mots.index(@b) or @mots.index(try) > @mots.index(@a))
 		@label.set_text("Revois ton ordre alphabétique !")
 	elsif @mots.include?(try) and @mots.index(try) > @mots.index(@mot)
@@ -192,12 +192,8 @@ champ.signal_connect("activate") {
 		lettres = (@mot.length - 1).to_s
 		@label.set_text("C'est un mot de " + @lettres + " lettres...")
 	elsif try.chomp == "c?"
-        if @coups == 1
-            essai = "essai"
-        else
-            essai = "essais"
-        end
-		@label.set_text("Vous avez deja fait " + @coups.to_s + " " + essai + ".")
+        if @coups == 1 then essai = "essai" else essai = "essais" end
+		@label.set_text("Vous avez déjà fait " + @coups.to_s + " " + essai + ".")
     elsif try.length < 4
 		@label.set_text("Les mots de moins de 3 lettres ne sont pas pris en compte.")
 	else
@@ -205,16 +201,16 @@ champ.signal_connect("activate") {
 	end
 	@label2.set_text("C'est donc entre " + @bb + " et " + @aa + ".\n") unless @trouve
 }
-hb.pack_start(champ, :expand => true, :fill => true, :padding => 3)
+hb.pack_start(champ, :expand => true, :fill => true, :padding => 5)
 b = Gtk::Button.new(:label => "OK")
 b.signal_connect("clicked") {champ.activate}
-hb.pack_start(b, :expand => false, :fill => false, :padding => 3)
-vb.pack_start(hb, :expand => true, :fill => false)
+hb.pack_start(b, :expand => false, :fill => false, :padding => 5)
+vb.pack_start(hb, :expand => false, :fill => false, :padding => 30)
 @label = Gtk::Label.new("")
 @label.set_text("On cherche un mot de " + @lettres + " lettres...")
-vb.pack_start(@label, :expand => false)
+vb.pack_start(@label, :expand => false, :fill => false, :padding => 5)
 @label2 = Gtk::Label.new("")
-vb.pack_start(@label2)
+vb.pack_start(@label2, :expand => false, :fill => false, :padding => 5)
 
 window.add(vb)
 window.show_all
