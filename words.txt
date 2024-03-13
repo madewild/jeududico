@@ -547,15 +547,14 @@ affûter
 afghan
 afghani
 aficionado
+afin
 africain
 afrikaans
 afrikaner
-aga
 agaçant
 agacement
 agacer
 agacerie
-agami
 agape
 agate
 agave
@@ -10880,6 +10879,7 @@ foie
 foin
 foire
 foirer
+foireux
 fois
 foison
 foisonnement
