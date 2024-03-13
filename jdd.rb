@@ -96,7 +96,8 @@ menu.attach(options,1,2,0,1,:shrink)
 scores = Gtk::Button.new(:label => "Scores")
 scores.set_relief(:none)
 scores.signal_connect("clicked") {
-	hisc = Gtk::MessageDialog.new(:parent => window, :flags => :modal, :type => :info, :buttons => :close)
+	hisc = Gtk::MessageDialog.new(:parent => window, :flags => :modal, :type => :info, :buttons => :close,
+    :message => "Voici les 10 meilleurs scores obtenus par le passé :")
 	File::open("scores.txt", "r") do |file|
 		lines = file.readlines
 		lines = lines.sort
@@ -107,7 +108,7 @@ scores.signal_connect("clicked") {
 	    hisc.child.pack_start(score)
     end
 	hisc.child.show_all
-    hisc.set_title("Meilleurs scores")
+    hisc.set_title("Scores")
 	hisc.run
 	hisc.destroy
 }
