@@ -19,9 +19,9 @@ def nouveau
 	@debut = Time.new
 	@trouve = false
 	@a = @mots[(lim-1)]
-	@aa = @a.chomp.upcase
+	@aa = nil
 	@b = @mots[0]
-	@bb = @b.chomp.upcase
+	@bb = nil
 	@coups = 0
 end
 
@@ -59,11 +59,11 @@ def rejouer
 	rejouer = @popup.run
 	if rejouer == :yes
 		@trouve = true
-		@label.set_text("")
-		@label2.set_text("")
 		@intro.set_text("")
 		@popup.destroy
 		nouveau
+        @label.set_text("On cherche un mot de " + @lettres + " lettres...")
+        @label2.set_text("")
 	else
 		Gtk.main_quit
 	end
@@ -71,15 +71,15 @@ end
 
 nouveau
 vb = Gtk::Box.new(:vertical, 0)
+
 menu = Gtk::Table.new(1,5)
 jeu = Gtk::Button.new(:label => "Jeu")
 jeu.set_relief(:none)
 jeu.signal_connect("clicked") {
-	game = Gtk::MessageDialog.new(:parent => window, :flags => :modal, :type => :info, :buttons => :close,
-	:message => "Cette fonctionnalité n'est pas encore disponible")
-	game.set_title("Jeu")
-	game.run
-	game.destroy
+	@popup = Gtk::MessageDialog.new(:parent => window, :flags => :modal, :type => :warning, :buttons => :yes_no,
+	:message => "Nouvelle partie ?")
+	@popup.set_title("Jeu")
+    rejouer
 }
 menu.attach(jeu,0,1,0,1,:shrink)
 
@@ -199,7 +199,12 @@ champ.signal_connect("activate") {
 	else
 		@label.set_text("Le mot " + try.chomp.upcase + " n'est pas admis...")
 	end
-	@label2.set_text("C'est donc entre " + @bb + " et " + @aa + ".\n") unless @trouve
+    if @aa and not @bb
+        @bb = @b.chomp.upcase
+    elsif @bb and not @aa
+        @aa = @a.chomp.upcase
+    end
+	@label2.set_text("C'est donc entre " + @bb + " et " + @aa + ".\n") if (@aa and @bb) unless @trouve
 }
 hb.pack_start(champ, :expand => true, :fill => true, :padding => 5)
 b = Gtk::Button.new(:label => "OK")
